@@ -1,0 +1,12 @@
+.todo-page-container {
+  margin: 2rem 25rem 2rem 25rem ;
+}
+.todo-done {
+  text-decoration: line-through;
+}
+
+.toodList-container {
+  max-height: 17rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
