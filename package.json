@@ -11,6 +11,9 @@
   },
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": "10.16.2"
+  },
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.7.6",
     "axios": "^0.19.0",
