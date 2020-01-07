@@ -16,7 +16,7 @@ require('./todo.routes')(app);
 //app.use(express.static('./dist'));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.resolve('./dist/index.html'));
+  res.sendFile(path.resolve('../dist/index.html'));
 });
 
 const db = 'mongodb://localhost/todo-test-1';
