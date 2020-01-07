@@ -4,10 +4,10 @@
   "description": "create a full stack todo",
   "main": "index.js",
   "scripts": {
-    "start": "rm -rf dist && export NODE_ENV=production && npm run start-server",
+    "start": "export NODE_ENV=production && npm run start-server",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "./node_modules/.bin/webpack-dev-server --config ./webpack/webpack.config.js",
-    "build": " export NODE_ENV=production && webpack -p --config ./webpack/webpack.config.js",
+    "build": "rm -rf dist && export NODE_ENV=production && webpack -p --config ./webpack/webpack.config.js",
     "start-server": "node server/server.js"
   },
   "author": "",
