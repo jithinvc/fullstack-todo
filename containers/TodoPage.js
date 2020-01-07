@@ -34,7 +34,7 @@ class TodoPage extends Component {
   onAddTodo = (e) => {
     if (e.charCode === 13 || e.keyCode === 13) {
       //ask this nihar or some one
-      const old_value = this.state.newtodo;
+      const old_value = e.target.value;
       this.setState({newtodo: ''}, () => this.props.addTodo(old_value));
       return;
     }

@@ -44,7 +44,6 @@ module.exports = {
     ]
   },
   plugins,
-  devtool: 'source-map',
   performance: { hints: false },
   output: {
     path: parentDir + '/dist',
