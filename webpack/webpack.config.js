@@ -1,8 +1,19 @@
 var webpack = require('webpack');
 var path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');//install
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 var parentDir = path.join(__dirname, '../');
+const isDevelopment = process.env.NODE_ENV === 'development';
 
+const plugins =[new HtmlWebPackPlugin({
+  template: './index.html',
+  filename: './index.html',
+}),
+  new MiniCssExtractPlugin({
+  filename: isDevelopment ? '[name].css' : '[name].[hash].css',
+  chunkFilename: isDevelopment ? '[id].css' : '[id].[hash].css',
+})];
 module.exports = {
   entry: ['babel-polyfill', path.join(__dirname, '../index.js')],
   module: {
@@ -19,21 +30,22 @@ module.exports = {
     },
     {
       test: /\.s(a|c)ss$/,
-      exclude: /\.module.(s(a|c)ss)$/,
       loader: [
-        'style-loader',
+        isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
         'css-loader',
         {
           loader: 'sass-loader',
           options: {
-            sourceMap: true,
+            sourceMap: isDevelopment,
           },
         },
       ],
     }
     ]
   },
+  plugins,
   devtool: 'source-map',
+  performance: { hints: false },
   output: {
     path: parentDir + '/dist',
     filename: 'bundle.js'

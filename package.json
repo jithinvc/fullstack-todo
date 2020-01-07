@@ -4,9 +4,10 @@
   "description": "create a full stack todo",
   "main": "index.js",
   "scripts": {
+    "start": "rm -rf dist && export NODE_ENV=production && npm run build && npm run start-server",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "./node_modules/.bin/webpack-dev-server --config ./webpack/webpack.dev.config.js",
-    "build": "webpack -p --config webpack.config.js",
+    "dev": "./node_modules/.bin/webpack-dev-server --config ./webpack/webpack.config.js",
+    "build": "webpack -p --config ./webpack/webpack.config.js",
     "start-server": "node --inspect server/server.js"
   },
   "author": "",
@@ -22,8 +23,10 @@
     "concurrently": "^5.0.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "html-webpack-plugin": "^3.2.0",
     "install": "^0.13.0",
     "lodash": "^4.17.15",
+    "mini-css-extract-plugin": "^0.9.0",
     "mongoose": "^5.8.3",
     "node-sass": "^4.13.0",
     "npm": "^6.13.4",
