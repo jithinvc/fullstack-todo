@@ -3,6 +3,7 @@
  */
 import axios from 'axios';
 
+console.log(process.env.PORT);
 const instance = axios.create({
   baseURL: `http://127.0.0.1:${process.env.PORT || 5000}`,
 });

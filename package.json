@@ -10,6 +10,7 @@
     "build": "rm -rf dist && export NODE_ENV=production && webpack -p --config ./webpack/webpack.config.js",
     "start-server": "node server/server.js"
   },
+  "proxy": "http://localhost:5000",
   "author": "",
   "license": "ISC",
   "engines": {
