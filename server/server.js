@@ -23,7 +23,7 @@ const db = 'mongodb://localhost/todo-test-1';
 const PORT = 4004;
 mongoose
     .connect(
-        db,
+        process.env.MONGODB_URI || db,
         { useNewUrlParser: true }
     )
     .then(() => console.log("Mongo connected"))
