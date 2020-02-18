@@ -40,7 +40,7 @@ export const fetchtodos = (page) => async (dispatch, getState) => {
   dispatch({ type: FETCH_TODOS_REQUEST });
   try {
     const queryParamsString = queryString.stringify(queryParams);
-    const data = await axios.get(`getTodos?${queryParamsString}`);
+    const data = await axios.get(`api/todo/getTodos?${queryParamsString}`);
     dispatch({ type: FETCH_TODOS_SUCCESS, payload: { data: data.data.todos, count: data.data.numOfResults }})
   }
   catch (e) {
@@ -51,7 +51,7 @@ export const fetchtodos = (page) => async (dispatch, getState) => {
 export const addTodo = (text) => async (dispatch, getstate) => {
   dispatch({ type: ADD_TODO_REQUEST});
   try {
-    const data = await axios.post('addtodo', { text });
+    const data = await axios.post('api/todo/addtodo', { text });
     dispatch({ type: ADD_TODO_SUCCESS, payload: {data: data.data} })
   }
   catch (e) {
@@ -61,7 +61,7 @@ export const addTodo = (text) => async (dispatch, getstate) => {
 
 const initialState = {
   todos: [],
-  queryParams: { query: '*', page: 1 },
+  queryParams: { query: '', page: 1 },
   hasMore: true
 };
 

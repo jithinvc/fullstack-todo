@@ -2,45 +2,45 @@
  * Created by jithin on 30/12/19.
  */
 const express = require('express');
-
+const { authenticate } = require('./authenticate');
 const router = express.Router();
-const Todo = require("./models/todo");
+const { User }  = require("./models/user");
 
-router.post('/addtodo', (req, res) => {
-  const newTodo = new Todo({
-    text: req.body.text,
-    id: req.body.id,
-    done: req.body.done
-  });
-  console.log(req.body)
-  Todo.create(newTodo).then(function(dbtodo) {
-    console.log(dbtodo);
-    res.json(dbtodo);
-  })
-    .catch(function(err) {
-      // If an error occurred, log it
-      console.log(err);
-      res.json(err);
+router.post('/addtodo', authenticate, async (req, res) => {
+
+  try {
+    const { user } = req;
+    console.log(req.body);
+    const todo = {text: req.body.text, id: req.body.id, done: req.body.done};
+    user.todos.push(todo);
+    await user.save();
+
+    return res.status(200).send({
+      todo: res.json(todo),
     });
+  }
+  catch (e) {
+    return res.status(500).send(e);
+  }
 });
 
-router.get('/getTodos', async (req, res) => {
+router.get('/getTodos', authenticate, async (req, res) => {
   const resPerPage = 9;
   const page = req.query.page;
   const query = req.query.query;
+  const { user } = req;
   try {
 // Find Demanded Products - Skipping page values, limit results       per page
-    const filter = query != '*' ? { text: new RegExp(query) } : {};
-    const foundTodos = await Todo.find(filter)
-        .skip((resPerPage * page) - resPerPage)
-        .limit(resPerPage);
+    const filter = new RegExp(query);
+    const foundTodos = user.todos.filter((val) => val.text.match(filter));
+    const paginated = foundTodos.slice((resPerPage * page) - resPerPage, (resPerPage * page));
 // Count how many products were found
-    const numOfProducts = await Todo.count(filter);
+    const numOfProducts = foundTodos.length;
 // Renders The Page
     res.json({
-      todos: foundTodos,
+      todos: paginated,
       currentPage: page,
-      pages: Math.ceil(numOfProducts / resPerPage),
+      pages: Math.ceil(numOfProducts/resPerPage),
       numOfResults: numOfProducts
     });
   } catch (err) {
@@ -48,6 +48,6 @@ router.get('/getTodos', async (req, res) => {
   }
 });
 
-module.exports = app => {
-  app.use('/', router)
+module.exports = (app) => {
+  app.use('/api/todo', router)
 };

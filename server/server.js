@@ -8,18 +8,20 @@ const bodyParser = require("body-parser");
 const app = express();
 const path = require('path');
 
+console.log(cors());
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static('./dist'));
 //require('./models')(mongoose);
 require('./todo.routes')(app);
+require('./user.routes')(app);
 //app.use(express.static('./dist'));
 
-app.get('/', (req, res) => {
-  res.sendFile(path.resolve('../dist/index.html'));
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve('./dist/index.html'));
 });
 
-const db = 'mongodb://localhost/todo-test-1';
+const db = 'mongodb://mongodb/todo-test-1';
 const PORT = 4004;
 mongoose
     .connect(

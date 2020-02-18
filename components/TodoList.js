@@ -9,7 +9,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import queryString from 'query-string';
-import { useHistory } from "react-router-dom";
+import history  from '../utils/history';
 
 import constants from '../constants/constants'
 
@@ -23,14 +23,13 @@ export const Todolist = (props) => {
   const onChangeTodoStatus = (id) => {
     props.onToggleTodo(id)
   };
-  let history = useHistory();
   const handleScroll = e => {
     const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
     const { hasMore, queryParams, updateQueryParams } = props;
     if (bottom && hasMore) {
       let query = { [constants.PAGE]: queryParams.page + 1 };
       updateQueryParams(query);
-      history.push(queryString.stringify(query));
+      history.push('todos', query);
       props.fetchtodos();
     }
   };

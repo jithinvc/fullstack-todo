@@ -4,7 +4,7 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 import PropTypes from 'prop-types';
-import { useHistory } from "react-router-dom";
+import history  from '../utils/history';
 import queryString from 'query-string';
 
 import constants from '../constants/constants'
@@ -16,18 +16,17 @@ import constants from '../constants/constants'
 //try useState and dispatch hook
 export const Search = (props) => {
   const { queryParams } = props;
-  let history = useHistory();
 
   const onChangeSearch = (e) => {
     const query = { [constants.QUERY]: e.target.value };
     if (e.charCode === 13 || e.keyCode === 13) {
       query[constants.PAGE] = 1;
       props.updateQueryParams(query);
-      history.push(queryString.stringify(query));
+      history.push('todos', query);
       props.fetchtodos();
       return;
     }
-    history.push(queryString.stringify(query));
+    history.push('todos', query);
     props.updateQueryParams(query);
   };
 

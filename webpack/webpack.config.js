@@ -4,8 +4,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');//install
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 var parentDir = path.join(__dirname, '../');
-const isDevelopment = process.env.NODE_ENV === 'development';
-
+const isDevelopment = process.env.NODE_ENV !== 'production';
+console.log(process.env.NODE_ENV);
 const plugins =[new HtmlWebPackPlugin({
   template: './index.html',
   filename: './index.html',
@@ -51,5 +51,8 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
+    proxy: {
+      "/api": "http://localhost:5000"
+    },
   },
 }
