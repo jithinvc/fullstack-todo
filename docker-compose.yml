@@ -3,7 +3,7 @@ services:
   app:
       container_name: app
       restart: always
-      image: new-todo_app:latest
+      image: jithinchowdary/todo_app:latest
       ports:
         - "5000:5000"
       depends_on:
@@ -13,7 +13,5 @@ services:
   mongodb:
     container_name: mongodb
     image: mongo
-    volumes:
-      - ./data:/data/db1
     ports:
       - "27017:27017"

@@ -7,15 +7,7 @@ const validator = require('validator');
 const bcrypt = require('bcryptjs');
 
 const TodoSchema = new Schema({
-  text: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  done: {
-    type: Boolean,
-    default: false
-  }
+
 });
 
 const UserSchema = new Schema({
@@ -38,7 +30,14 @@ const UserSchema = new Schema({
       message: '{value} is not the valid email',
     }
   },
-  todos:[TodoSchema],
+  todos:[{text: {
+    type: String,
+    required: true
+  },
+    done: {
+      type: Boolean,
+      default: false
+    }}],
   password: {
     type: String,
     required: true,
