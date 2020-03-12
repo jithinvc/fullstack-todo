@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import TodoPage from './TodoPage';
 import LoginContainer from './LoginContainer';
 import SignUpContainer from './SignUpContainer';
+import { TrialComponent } from '../components/TrialComponent'
 
 import {
     BrowserRouter as Router,
@@ -23,6 +24,7 @@ export default class App extends Component {
             <Route path="/todos" component={TodoPage} />
             <Route path="/login" component={LoginContainer} />
             <Route path="/signup" component={SignUpContainer} />
+            <Route path="/test" component={TrialComponent} />
             <Route path="/" component={LoginContainer} />
           </Switch>
           {}

@@ -54,5 +54,18 @@ UserSchema.methods.comparePassword = function(password) {
   return bcrypt.compareSync(password, user.password);
 };
 
+UserSchema.pre('save', function(next) {
+  const user = this;
+  if (user.isModified('password')) {
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(user.password, salt, (err1, hash) => {
+        user.password = hash;
+        next();
+      });
+    });
+  } else {
+    next();
+  }
+});
 const User = mongoose.model('User', UserSchema);
 module.exports = { User, TodoSchema };

@@ -30,6 +30,9 @@ class TodoPage extends Component {
     this.props.fetchtodos()
   }
 
+  componentWillReceiveProps(props1, props2){
+    debugger;
+  }
   onAddTodo = (e) => {
     if (e.charCode === 13 || e.keyCode === 13) {
       //ask this nihar or some one

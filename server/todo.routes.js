@@ -10,7 +10,6 @@ router.post('/addtodo', authenticate, async (req, res) => {
 
   try {
     const { user } = req;
-    console.log(req.body);
     const todo = {text: req.body.text, id: req.body.id, done: req.body.done};
     user.todos.push(todo);
     await user.save();
@@ -45,6 +44,23 @@ router.get('/getTodos', authenticate, async (req, res) => {
     });
   } catch (err) {
     throw new Error(err);
+  }
+});
+
+router.put('/togggle', authenticate, async (req, res) => {
+  const { user } = req;
+  const todoId = req.body.id;
+  try {
+    const todoIndex = user.todos.findIndex((val) => val.id === todoId);
+    const toggleTodo = user.todos[todoIndex];
+    user.todos[todoIndex].done = !user.todos[todoIndex].done;
+    await user.save();
+    return res.status(200).send({
+      todo: res.json(toggleTodo),
+    });
+  }
+  catch (e) {
+    return res.status(500).send(e);
   }
 });
 

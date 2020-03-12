@@ -8,6 +8,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Alert from 'react-bootstrap/Alert';
 
 
 import './LoginModal.scss';
@@ -67,7 +68,6 @@ export const LoginModal = (props) => {
               </Form.Control>
             </Form.Group>
           </Form>
-          <a href="" className="forgot-password-link">Forgot Password</a>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={handleSubmit}>Login</Button>

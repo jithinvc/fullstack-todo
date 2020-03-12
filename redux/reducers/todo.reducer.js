@@ -23,10 +23,15 @@ const FETCH_TODOS_ERROR = 'FETCH_TODOS_ERROR';
 
 export const getTodoState = state => state.todos;
 
-export const toggleTodo = (id) => ({
-  type: TOGGLE_TODO_REQUEST,
-  payload: { id }
-});
+export const toggleTodo = (id) => async (dispatch) => {
+  try {
+    await axios.put(`api/todo/togggle`, { id });
+    dispatch({ type: TOGGLE_TODO_SUCCESS, payload: { id }})
+  }
+  catch (e) {
+    dispatch({ type: TOGGLE_TODO_ERROR, erroText: 'toggle todo error'})
+  }
+};
 
 export const updateQueryParams = (params) => async (dispatch) => {
   dispatch({type: UPDATE_QUERY_PARAMS, payload: params });
@@ -44,7 +49,7 @@ export const fetchtodos = (page) => async (dispatch, getState) => {
     dispatch({ type: FETCH_TODOS_SUCCESS, payload: { data: data.data.todos, count: data.data.numOfResults }})
   }
   catch (e) {
-    dispatch({ type: FETCH_TODOS_ERROR, payload: { errorText: 'todo fucked up' }})
+    dispatch({ type: FETCH_TODOS_ERROR, payload: { errorText: 'fetch todo error' }})
   }
 };
 
@@ -78,7 +83,7 @@ export default (state = initialState, { type, payload = {} }) => {
     case FETCH_TODOS_ERROR:
       return state;
     case TOGGLE_TODO_SUCCESS:
-      const index = _findIndex(state.todos, { '_id': payload._id });
+      const index = _findIndex(state.todos, { '_id': payload.id });
       const todos = state.todos;
       const ourtodo = state.todos[index];
       return {

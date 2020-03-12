@@ -38,7 +38,7 @@ export const Todolist = (props) => {
     {props.todos.map(val => (
         <Form.Row className="mb-2" key={val._id}>
           <Col sm="12">
-            <Form.Check inline onChange={() => onChangeTodoStatus(val.id)} />
+            <Form.Check inline onChange={() => onChangeTodoStatus(val._id)} />
             <span className={cx({ 'todo-done': val.done })}>{val.text}</span>
           </Col>
         </Form.Row>

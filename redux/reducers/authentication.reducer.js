@@ -15,14 +15,21 @@ const initialState = {
   isUserLoggingIn: false
 };
 
-
+const setTokenAndredirectToTodos = async (savedUser) => {
+  const { token } = savedUser.data;
+  await storage.setItem('token', token);
+  await storage.setItem('user', JSON.stringify(savedUser.data.user));
+  setAccessTokenHeader(token);
+  history.push('/todos');
+  window.location && window.location.reload();
+}
 export const login = (email, password) => async dispatch => {
   const user = { email, password };
   dispatch({type: USER_LOGIN_REQUEST, payload: user });
   try {
     const loggedInUser = await axios.post('api/user/login', user);
     //const { token } = loggedInUser.data;
-
+    setTokenAndredirectToTodos(loggedInUser);
     dispatch({type: USER_LOGIN_SUCCESS, payload: loggedInUser })
   }
   catch (error) {
@@ -35,12 +42,7 @@ export const signUp = (email, password, name) => async dispatch => {
   dispatch({type: USER_SIGNUP_REQUEST, payload: user });
   try {
     const savedUser = await axios.post('api/user/signUp', { user });
-    const { token } = savedUser.data;
-    await storage.setItem('token', token);
-    await storage.setItem('user', JSON.stringify(savedUser.data.user));
-    setAccessTokenHeader(token);
-    history.push('/todos');
-    window.location && window.location.reload();
+    setTokenAndredirectToTodos(savedUser);
 
     dispatch(success(USER_SIGNUP_SUCCESS, savedUser.data.user));
     //dispatch(closeOverlay(SIGNUP_OVERLAY));

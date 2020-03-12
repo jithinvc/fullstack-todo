@@ -18,5 +18,4 @@ const mapStateToProps = state => ({
   isUserLoggedIn: state.authentication.isUserLoggedIn,
   errorMessage: state.authentication.errorMessage
 });
-connect(mapStateToProps, mapDispatchToProps);
-export default (LoginModal)
+export default connect(mapStateToProps, mapDispatchToProps)(LoginModal);
