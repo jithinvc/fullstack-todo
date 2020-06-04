@@ -15,7 +15,7 @@ router.post('/addtodo', authenticate, async (req, res) => {
     await user.save();
 
     return res.status(200).send({
-      todo: res.json(todo),
+      todo: res.json(user.todos[user.todos.length -1]),
     });
   }
   catch (e) {
