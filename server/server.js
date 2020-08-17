@@ -15,6 +15,7 @@ app.use(express.static('./dist'));
 //require('./models')(mongoose);
 require('./todo.routes')(app);
 require('./user.routes')(app);
+require('./email.routes')(app);
 //app.use(express.static('./dist'));
 
 app.get('*', (req, res) => {

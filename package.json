@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "export NODE_ENV=development  && ./node_modules/.bin/webpack-dev-server --config ./webpack/webpack.config.js",
     "build": "rm -rf dist && export NODE_ENV=production && webpack -p --config ./webpack/webpack.config.js",
-    "start-server": "node server/server.js"
+    "start-server": "node --inspect server/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -32,6 +32,7 @@
     "mini-css-extract-plugin": "^0.9.0",
     "mongoose": "^5.8.3",
     "node-sass": "^4.13.0",
+    "nodemailer": "^6.4.11",
     "npm": "^6.13.4",
     "query-string": "^6.9.0",
     "react": "^16.12.0",

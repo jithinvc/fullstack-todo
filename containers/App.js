@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import TodoPage from './TodoPage';
 import LoginContainer from './LoginContainer';
 import SignUpContainer from './SignUpContainer';
-import { TrialComponent } from '../components/TrialComponent'
+import Amp4EmailContainer from './Amp4EmailContainer';
+import { TrialComponent } from '../components/TrialComponent';
 
 import {
     BrowserRouter as Router,
@@ -16,6 +17,7 @@ const OVERLAY_COMPONENT_MAP = {
   //SIGNUP: SignInContainer,
   //FORGOT_CREDS: ForgotCredsContainer
 };
+
 export default class App extends Component {
   render () {
     return (
@@ -25,9 +27,9 @@ export default class App extends Component {
             <Route path="/login" component={LoginContainer} />
             <Route path="/signup" component={SignUpContainer} />
             <Route path="/test" component={TrialComponent} />
+            <Route path="/email" component ={Amp4EmailContainer} />
             <Route path="/" component={LoginContainer} />
           </Switch>
-          {}
         </Router>
     )
   }
